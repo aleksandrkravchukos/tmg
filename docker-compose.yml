@@ -1,0 +1,37 @@
+version: '3'
+services:
+    app:
+        container_name: tmg_app
+        build:
+
+            context: .
+            dockerfile: ./docker/Dockerfile
+        ports:
+            - "80:80"
+            - "8080:8080"
+            - "443:443"
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            - db
+        networks:
+            - app-network
+
+    db:
+        image: mysql:8.0
+        container_name: tmg_db
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: tmg
+            MYSQL_ROOT_PASSWORD: test
+        volumes:
+            - .docker/mysql/data:/var/lib/mysql
+        networks:
+            - app-network
+        command: mysqld --sql_mode="" --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=0
+
+networks:
+    app-network:
+        driver: bridge
