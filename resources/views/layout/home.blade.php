@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
-<main>
-    <div class="container">
+
+<div class="container">
+    <div class="content">
         @yield('content')
     </div>
-</main>
+</div>
 
 <script type="text/javascript" src="{{asset('js/app.js')}}" async></script>
 @yield('scripts')

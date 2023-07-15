@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "datatable": "^0.0.6",
+        "datatables.net": "^1.13.5",
         "jquery": "^3.7.0"
     }
 }

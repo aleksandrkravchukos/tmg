@@ -1,9 +1,15 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "The skeleton application for the Laravel framework. TMG task for CRUD users",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Oleksandr",
+            "email": "aleksandr.kravchuk.os@gmail.com"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
@@ -21,8 +27,12 @@
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
+        "classmap": [
+            "database"
+        ],
         "psr-4": {
             "App\\": "app/",
+            "Tests\\": "tests/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }

@@ -3,7 +3,6 @@ services:
     app:
         container_name: tmg_app
         build:
-
             context: .
             dockerfile: ./docker/Dockerfile
         ports:
