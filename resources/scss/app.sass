@@ -1,5 +1,61 @@
 
+
+.modal
+    display: none
+    position: fixed
+    z-index: 1
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    overflow: auto
+    background-color: rgba(0, 0, 0, 0.5)
+
+.modal-content
+    background-color: #fefefe
+    margin: 10% auto
+    padding: 20px
+    border: 1px solid #888
+    width: 500px !important
+.close
+    color: #aaa
+    float: right
+    font-size: 28px
+    font-weight: bold
+
+.close:hover,
+.close:focus
+    color: black
+    text-decoration: none
+    cursor: pointer
+
 html, body
+    .plus-button
+        width: 30px
+        height: 30px
+        border: none
+        background-color: #f0f0f0
+        position: relative
+        cursor: pointer
+
+    .plus-button::before,
+    .plus-button::after
+        content: ''
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 60%
+        height: 2px
+        background-color: #000
+        transform: translate(-50%, -50%)
+
+    .plus-button::before
+        transform-origin: center bottom
+
+    .plus-button::after
+        transform-origin: center top
+
+
     .navigation
         display: flex
 
@@ -37,6 +93,7 @@ html, body
         display: inline-block
         padding: 5px
         margin-bottom: 30px
+
     .main-content
         display: inline-block
         vertical-align: top
@@ -102,7 +159,8 @@ html, body
         button:hover
             background-color: #45a049
 
-        .buttonUpdate
+        .buttonUpdate,
+        .buttonCreate
             cursor: pointer
             display: inline-block
             background-color: #75c88f
@@ -115,7 +173,9 @@ html, body
             text-decoration: none
             outline: none
             transition: background-color 0.3s ease
-        .buttonUpdate:hover
+
+        .buttonUpdate:hover,
+        .buttonCreate:hover
             background-color: #5aaf6f
 
         .buttonDelete
@@ -131,6 +191,7 @@ html, body
             text-decoration: none
             outline: none
             transition: background-color 0.3s ease
+
         .buttonDelete:hover
             background-color: #5aaf6f
 

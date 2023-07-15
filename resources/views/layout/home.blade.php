@@ -12,9 +12,6 @@
         @yield('content')
     </div>
 </div>
-
-<script type="text/javascript" src="{{asset('js/app.js')}}" async></script>
-@yield('scripts')
 </body>
 </html>
 

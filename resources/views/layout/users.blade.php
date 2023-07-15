@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
 </head>
 <body>
 
@@ -24,9 +23,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="{{asset('js/app.js')}}" async></script>
-@stack('custom-js')
 
 </body>
 </html>
