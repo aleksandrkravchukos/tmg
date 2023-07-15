@@ -1,59 +1,89 @@
 @extends('layout.users')
 @section('title', 'Users. CRUD test task')
 
+@push('custom-css')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+@endpush
 @section('user-content')
-
-
     <div class="main-content">
         <div class="top-panel">
             User list
         </div>
-
-        <table id="userTable" class="display" style="width:100%">
+        <table id="userTable" class="display">
             <thead>
             <tr>
+                <th>id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Make</th>
             </tr>
             </thead>
             <tbody></tbody>
         </table>
-
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus tristique libero, id rutrum tellus
-        tristique a. Mauris eleifend mi auctor, scelerisque lacus ut, fermentum enim. Fusce volutpat leo a enim
-        convallis, a consequat purus convallis. Vestibulum convallis, ligula non cursus fringilla, neque sapien finibus
-        mauris, id luctus neque sem et elit. Nullam facilisis auctor diam ut auctor. Nullam id feugiat justo. Vestibulum
-        auctor enim lacus, eu venenatis ipsum tincidunt a. Mauris in nisi sed purus fringilla pulvinar. Cras eleifend
-        convallis erat a lobortis.
-        Sed fringilla sollicitudin justo ac pellentesque. Morbi viverra semper lacus in pellentesque. Fusce vel justo
-        sed justo iaculis laoreet. Sed a elit vulputate, tempor quam non, dapibus sapien. Mauris id faucibus metus.
-        Proin consequat dui nec tortor lobortis, vitae efficitur ex cursus. Aliquam vestibulum sapien non leo venenatis
-        facilisis. Sed eu pellentesque lorem. Sed scelerisque, tellus sit amet malesuada lobortis, nisl nisl lobortis
-        metus, ut lobortis lacus lectus ac ex. Donec ultricies euismod nunc, a iaculis metus pharetra eu. Aliquam vitae
-        feugiat elit, vel consectetur orci. In venenatis, erat sed venenatis gravida, sem nunc gravida massa, in cursus
-        nulla sem id sapien.
-        Please note that "Lorem ipsum" is a placeholder text commonly used in the design and typesetting industry to
-        demonstrate the visual effects of different fonts, layouts, and designs without the distraction of meaningful
-        content. It does not carry any specific meaning or message.
     </div>
 @endsection
 
 @push('custom-js')
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script>
-
-
-        $('#myTable').DataTable({
-            ajax: {
-                url: '/users',
-                dataSrc: ''
-            },
-            columns: [
-                { data: 'name' },
-                { data: 'email' },
-                { data: 'phone' }
-            ]
+        $.noConflict();
+        jQuery(function ($) {
+            let app = window.userApp;
+            let table = $('#userTable').DataTable({
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'csv',
+                        charset: 'UTF-8',
+                        bom: true,
+                        filename: 'userExport',
+                        title: 'Export'
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn-sm'
+                    }
+                ],
+                columnDefs: [
+                    {"width": "20px", "targets": 0},
+                    {"width": "200px", "targets": 1},
+                    {"width": "220px", "targets": 2},
+                    {"width": "150px", "targets": 3},
+                ],
+                columns: [
+                    {data: 'id'},
+                    {data: 'name'},
+                    {data: 'email'},
+                    {data: 'phone'},
+                    {data: 'make'},
+                ],
+                lengthMenu: [10, 20, 50],
+                responsive: false,
+                autoFill: true,
+                colReorder: true,
+                order: [[0, 'desc']],
+                keys: {
+                    columns: ':not(:first-child)'
+                },
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child',
+                    blurable: true
+                },
+                rowReorder: false,
+                "createdRow": function (row, data, dataIndex) {
+                    if (data.declared > 150) {
+                        $(row).addClass('greenClass').removeClass('odd');
+                    }
+                    // } else if (data.declared > 150) {
+                    //     $(row).addClass('redClass').removeClass('odd');
+                    // }
+                },
+                color: "green"
+            });
+            app.init();
+            app.users(0, table)
         });
     </script>
 @endpush

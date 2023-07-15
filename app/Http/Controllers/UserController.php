@@ -39,7 +39,20 @@ class UserController extends Controller
      */
     public function get(User $user)
     {
-        return ['test' => 'test'];
+        $test = [];
+        $i = 0;
+        foreach ([1, 2] as $row) {
+            $test[] = [
+                'id' => $i + 1,
+                'name' => 'Oleksandr' . $i,
+                'email' => 'aleksandr.kravchuk.os@gmail.com',
+                'phone' => '+380664784973',
+                'make' => '<div class="buttonUpdate">Update</div><div class="buttonDelete">Delete</div>'
+            ];
+            $i++;
+        }
+
+        return $test;
     }
 
     /**

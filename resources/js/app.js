@@ -1,63 +1,66 @@
 window.$ = window.jQuery = require('jquery');
-console.log('Hello, TMG!');
 
-let app = {
-    url: '/users/',
-    test: function () {
-        console.log('Testing jquery..');
-        $('body').css('background-color', '#f0f050')
-        console.log('Make sure that background changed to #f0f0f0..');
-    },
-    users: function () {
+class userApp {
+    constructor() {
+        console.log('Hello, TMG!');
+        this.url = '/users/';
+    }
+    test() {
+        console.log('This is a loading test Jquery');
+        try {
+            $('#vmenu').css('background-color', 'lightgreen');
+            return true;
+        } catch (e) {
+            return e.errors
+        }
+    }
+    users(page, table) {
         console.log('Get existing users..');
-        return this.userRequest({
-                url: this.url,
-                method: 'POST',
+        return $.post({
+            url: this.url + 'index',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 data: {
-                    userId: id
+                    action: 'getAllUsers',
+                    page: page
                 }
-            }
-        );
-    },
-    user: function (id) {
-        console.log('Get user by id..');
-        return this.userRequest({
-                url: this.url + id,
-                method: 'GET',
-                data: {
-                    userId: id
-                }
-            }
-        );
-    },
-    addUser: function (args) {
-        return this.userRequest(args);
-    },
-    updateUser: function (args) {
-        return this.userRequest(args);
-    },
-    deleteUser: function (args) {
-        return this.userRequest(args);
-    },
-    userRequest: function (args, method) {
-        $.ajax({
-            url: args.url,
-            type: args.method,
-            data: args.data,
-            success: function (response) {
-                console.log('response')
-                console.log(response)
-                return response;
             },
-            error: function (xhr) {
-                console.log('response-error')
-                console.log(xhr)
-                return xhr
+            success: function(data) {
+                table.rows.add(data).draw();
             }
         });
-        //console.log(args);
-        // AXIOS
     }
-};
+    user(id) {
+        console.log('Get user by id..');
+        return this.userRequest({
+            url: this.url + id,
+            method: 'GET',
+            data: {
+                userId: id,
+                action: 'getAllUsers'
+            }
+        }, function (data) {
+            alert(data);
+        });
+    }
+    updateUser(args) {
+        return this.userRequest(args);
+    }
+    deleteUser(args) {
+        return this.userRequest(args);
+    }
+    userRequest(args) {
+        return false;
+    }
+    addUser(args) {
+        return this.userRequest(args);
+    }
+    updateDataTable(data) {
+        console.log(data)
+    }
+    init() {
+        console.log('Initialization completed.');
+    }
+}
 
-console.log(app.users());
+window.userApp = new userApp();
