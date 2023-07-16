@@ -12,19 +12,19 @@
                 <span class="close">&times;</span>
                 <h2>Edit user data</h2>
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="user_name">Name</label>
                     <input type="text" id="user_name" required style="width: 450px;">
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="user_email">Email</label>
                     <input type="email" id="user_email" required style="width: 450px;">
                 </div>
                 <div class="form-group">
-                    <label for="email">Phone</label>
+                    <label for="user_phone">Phone</label>
                     <input type="text" id="user_phone" required style="width: 450px;">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="user_password">Password</label>
                     <input type="password" id="user_password" required style="width: 450px;">
                 </div>
                 <div id="buttons">

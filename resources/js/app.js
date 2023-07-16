@@ -113,7 +113,7 @@ class userApp {
                 });
 
                 $(".createUserData").click(function () {
-                    app.addUser();
+                    app.addUser(table);
                 });
 
                 $(".modal-content").click(function (e) {
@@ -216,7 +216,7 @@ class userApp {
         });
     }
 
-    addUser() {
+    addUser(table) {
         let validation = this.validateCreateUser();
         console.log(validation);
         if (validation === true) {
