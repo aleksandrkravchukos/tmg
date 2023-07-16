@@ -66,7 +66,7 @@
         <div>
             <div class="main-content">
                 <div class="top-panel">
-                    List of users. <span style="cursor: pointer" class="plus-button openModalCreate buttonCreate plus-button">Add User</span>
+                    List of users. <span style="cursor: pointer" class="plus-button openModalCreate buttonCreate plus-button"><img src="/images/add_user.png"> </span>
                 </div>
                 <table id="userTable" class="display">
                     <thead>
