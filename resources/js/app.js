@@ -260,7 +260,7 @@ class userApp {
                     app.users(0, table);
                 },
                 error: function (xhr, status, error) {
-                    $("#myModal").css("display", "block");
+                    $("#myModalCreate").css("display", "block");
                     console.error(error.message);
                     Swal.fire({
                         icon: 'error',
