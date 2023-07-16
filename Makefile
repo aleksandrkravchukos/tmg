@@ -45,3 +45,7 @@ cs-fix:
 ## Make seeders
 seeders:
 	docker exec -t tmg_app php artisan db:seed --class=UserSeeder
+
+## Make unit-tests
+unit-tests:
+	docker exec -it tmg_app php artisan test

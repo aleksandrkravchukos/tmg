@@ -60,3 +60,6 @@ Static analysis check
 
 ## Add seeders
     Make seeders
+
+## Unit testing
+    Make unit-tests
