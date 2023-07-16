@@ -8,7 +8,7 @@
 @section('user-content')
 
     <div id="myModal" class="modal">
-        <div class="modal-content" style="width: 500px;">
+        <div class="modal-content" style="width: 500px;height:600px;">
             <span class="close">&times;</span>
             <h2>Edit user data</h2>
             <div class="form-group">
@@ -31,7 +31,7 @@
                 <button class="createUserDataCancel" style="background-color:lightblue;position:absolute;width: 140px;">
                     Close
                 </button>
-                <button class="updateUserData" style="position:absolute;width: 140px;">Update data</button>
+                <button class="updateUserData" style="float:right;margin-left:400px;width: 140px;">Update data</button>
             </div>
         </div>
     </div>
