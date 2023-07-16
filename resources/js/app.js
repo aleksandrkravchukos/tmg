@@ -256,7 +256,7 @@ class userApp {
                 },
                 error: function (xhr, status, error) {
                     $("#myModal").css("display", "block");
-                    console.error(error);
+                    console.error(error.message);
                     Swal.fire({
                         icon: 'error',
                         title: 'Something went wrong.',
