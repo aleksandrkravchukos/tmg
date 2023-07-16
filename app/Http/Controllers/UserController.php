@@ -41,22 +41,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $error = '';
-        try {
-            User::query()
-                ->create(
-                    [
-                        'name' => $request->user_name,
-                        'email' => $request->user_email,
-                        'phone' => $request->user_phone,
-                        'password' => Hash::make($request->user_password),
-                    ]
-                );
-        } catch (\Exception $exception) {
-            $error = $exception->getMessage();
-        }
-
-        return $error;
+        return $this->userService->createUser($request);
     }
 
     /**
@@ -103,10 +88,13 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete user by id.
+     *
+     * @param $id
+     * @return bool
      */
-    public function destroy($id)
+    public function destroy($id): bool
     {
-        return User::query()->where('id', $id)->delete();
+        return $this->userService->deleteUser($id);
     }
 }

@@ -18,6 +18,10 @@
         </include>
     </source>
     <php>
+        <env name="DB_CONNECTION_TEST" value="mysql_test"/>
+        <env name="DB_DATABASE_TEST" value="tmg_test"/>
+        <server name="SESSION_DRIVER" value="array"/>
+
         <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>

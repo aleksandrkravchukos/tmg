@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mysql_testing'),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,9 +67,9 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST_TEST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE_TEST', 'tmg_test'),
-            'username' => env('DB_USERNAME_TEST', 'root'),
-            'password' => env('DB_PASSWORD_TEST', 'test'),
+            'database' => env('DB_DATABASE_TEST', 'forge'),
+            'username' => env('DB_USERNAME_TEST', 'forge'),
+            'password' => env('DB_PASSWORD_TEST', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

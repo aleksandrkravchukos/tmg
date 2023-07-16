@@ -150,10 +150,10 @@ class userApp {
             type: 'PATCH',
             data: {
                 _token: this._token,
-                user_name: $('#user_name').val(),
-                user_email: $('#user_email').val(),
-                user_phone: $('#user_phone').val(),
-                user_password: $('#user_password').val(),
+                name: $('#user_name').val(),
+                email: $('#user_email').val(),
+                phone: $('#user_phone').val(),
+                password: $('#user_password').val(),
                 id: this.activeId
             },
             success: function (response) {
@@ -226,10 +226,10 @@ class userApp {
                 type: 'POST',
                 data: {
                     _token: this._token,
-                    user_name: $('#user_name_c').val(),
-                    user_email: $('#user_email_c').val(),
-                    user_phone: $('#user_phone_c').val(),
-                    user_password: $('#user_password_c').val(),
+                    name: $('#user_name_c').val(),
+                    email: $('#user_email_c').val(),
+                    phone: $('#user_phone_c').val(),
+                    password: $('#user_password_c').val(),
                 },
                 success: function (response) {
                     console.log(response + response.length);
