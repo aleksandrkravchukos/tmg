@@ -69,3 +69,5 @@ Static analysis check
 ## Run cs-fixer
 
     Make cs-fix
+
+## Access the application in your browser and click "IS" [DEMO](http://localhost:8000)
