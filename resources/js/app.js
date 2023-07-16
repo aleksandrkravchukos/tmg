@@ -246,7 +246,7 @@ class userApp {
                     Swal.fire({
                         icon: 'error',
                         title: 'Something went wrong.',
-                        text: 'User not created'
+                        text: 'User not created with error ' + '"' + error + '"'
                     });
                 }
             });
