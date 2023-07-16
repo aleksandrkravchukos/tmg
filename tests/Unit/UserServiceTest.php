@@ -108,22 +108,17 @@ class UserServiceTest extends TestCase
     public function testUserWithEmailExists()
     {
         Config::set('database.default', 'mysql_test');
+        $user = User::create(
+            [
+                'name' => 'John Doe',
+                'email' => 'john@example.com',
+                'phone' => '1234567890',
+                'password' => Hash::make('password123'),
+            ]
+        );
 
-        // Create a user
-        $user = User::create([
-                                 'name' => 'John Doe',
-                                 'email' => 'john@example.com',
-                                 'phone' => '1234567890',
-                                 'password' => Hash::make('password123'),
-                             ]);
-
-        // Check if a user with the specific email exists in the database
         $emailExists = User::where('email', 'john@example.com')->exists();
-
-        // Assert that a user with the email exists
         $this->assertTrue($emailExists);
-
-        // Clean up: Delete the user
         $user->delete();
     }
 

@@ -24,29 +24,41 @@ Install Docker and optionally Make utility.
 Commands from Makefile could be executed manually in case Make utility is not installed.
 All command you can see in Makefile
 
-## Build container.
+## 1. Build container.
 
     Make build
 
-## Run docker containers
+## 2. Run docker containers
 
     Make up
 
-## Check docker containers
+## 3. Check docker containers
 
     Make check
 
-## Install the composer dependencies
+## 4. Install the composer dependencies
 
     Make vendors-install
 
-## Install the npm dependencies.
+## 5. Install the npm dependencies.
 
     Make npm-install
 
-## Compile js/css.
+## 6. Compile js/css.
 
     Make npm-dev
+
+## 7. Add seeders
+    Make seeders
+
+## 8. Unit testing
+    Make unit-tests
+CRUD testing includes:
+
+1. testCreateUser.
+2. testUpdateUserDetail.
+3. testUserDeleteById.
+4. testUserWithEmailExists.
 
 ## Static analysis
 
@@ -57,16 +69,3 @@ Static analysis check
 ## Run cs-fixer
 
     Make cs-fix
-
-## Add seeders
-    Make seeders
-
-## Unit testing
-    Make unit-tests
-CRUD testing includes:
-
-1. testCreateUser.
-2. testUpdateUserDetail.
-3. testUserDeleteById.
-4. testUserWithEmailExists.
-
