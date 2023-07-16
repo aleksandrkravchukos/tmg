@@ -9,7 +9,7 @@
 
 ## Test task for TMG
 
-# Docker / PHP 7.4 console / composer / phpunit
+# Docker / PHP 8.1 console / Mysql 8 / npm/ composer / laravel 10 
 
 Docker project for console php 7.4 projects with composer and phpunit.
 
