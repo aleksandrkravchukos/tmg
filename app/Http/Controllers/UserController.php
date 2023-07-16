@@ -84,7 +84,7 @@ class UserController extends Controller
         $id = $request->id;
         /** @var User $user */
         $user = User::query()->where('id', $id)->first();
-        return $this->userService->update($request, $user);
+        return $this->userService->updateUserData($request, $user);
     }
 
     /**
