@@ -70,4 +70,4 @@ Static analysis check
 
     Make cs-fix
 
-## Access the application in your browser and click "IS" [DEMO](http://localhost:8000)
+## Access the application in your browser and click "IS" [DEMO](https://tmg.activelifekyury.com.ua/)
