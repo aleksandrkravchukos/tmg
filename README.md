@@ -25,7 +25,7 @@ All command you can see in Makefile
 
 ## Build container.
 
-    Make build=
+    Make build
 
 ## Run docker containers
 
