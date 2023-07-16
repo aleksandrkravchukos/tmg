@@ -155,31 +155,19 @@ class userApp {
     }
 
     updateUser() {
-        $.ajax({
+        let data = {
             url: this.url + this.activeId,
-            type: 'PATCH',
-            data: {
-                _token: this._token,
-                name: $('#user_name').val(),
-                email: $('#user_email').val(),
-                phone: $('#user_phone').val(),
-                password: $('#user_password').val(),
-                id: this.activeId
-            },
-            success: function (response) {
-                console.log(response);
-                $("#myModal").css("display", "none");
-                app.users(0, table);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Update failed.',
-                    text: xhr.responseText
-                });
-            }
-        });
+            _token: this._token,
+            name: $('#user_name').val(),
+            email: $('#user_email').val(),
+            phone: $('#user_phone').val(),
+            password: $('#user_password').val(),
+            text: 'User updated',
+            method: 'PATCH',
+            modal: 'myModal',
+            id: this.activeId
+        }
+        this.makeRequest(data)
     }
 
     deleteUser() {
@@ -200,35 +188,20 @@ class userApp {
         }).then((result) => {
             if (result.isConfirmed && result.value === 'DELETE') {
                 console.log('Admin confirmed deleting user');
-                $.ajax({
+                let data = {
                     url: this.url + this.activeId,
-                    type: 'DELETE',
-                    data: {
-                        _token: this._token,
-                        id: this.activeId
-                    },
-                    success: function (response) {
-                        console.log(response);
-                        app.users(0, table);
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Done.',
-                            text: 'User deleted'
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Something went wrong',
-                            text: xhr.responseText
-                        });
-                    }
-                });
+                    _token: this._token,
+                    text: 'User deleted',
+                    method: 'DELETE',
+                    modal: '',
+                    id: this.activeId
+                }
+                this.makeRequest(data)
             } else {
                 Swal.fire({
                     icon: 'warning',
                     title: 'It looks like you are a bot...',
-                    text: 'Delete not confirmed'
+                    text: "Deleting doesn't confirm"
                 });
             }
         });
@@ -238,36 +211,18 @@ class userApp {
         let validation = this.validateCreateUser();
         console.log(validation);
         if (validation === true) {
-            $("#myModalCreate").css("display", "none");
-            $.ajax({
+            let data = {
                 url: this.url + 'create',
-                type: 'POST',
-                data: {
-                    _token: this._token,
-                    name: $('#user_name_c').val(),
-                    email: $('#user_email_c').val(),
-                    phone: $('#user_phone_c').val(),
-                    password: $('#user_password_c').val(),
-                },
-                success: function (response) {
-                    console.log(response + response.length);
-                    $("#myModal").css("display", "none");
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Done.',
-                        text: 'User created'
-                    });
-                    app.users(0, table);
-                },
-                error: function (xhr, status, error) {
-                    $("#myModalCreate").css("display", "block");
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Something went wrong.',
-                        text: 'User not created with error ' + '"' + xhr.responseText + '"'
-                    });
-                }
-            });
+                _token: this._token,
+                name: $('#user_name_c').val(),
+                email: $('#user_email_c').val(),
+                phone: $('#user_phone_c').val(),
+                password: $('#user_password_c').val(),
+                text: 'User created',
+                method: 'POST',
+                modal: 'myModalCreate'
+            }
+            this.makeRequest(data, table)
         } else {
             let icon = 'warning';
             let title = 'Validation error';
@@ -278,6 +233,36 @@ class userApp {
                 text: jsonErrorMessage
             });
         }
+    }
+
+    makeRequest(data, table) {
+        $.ajax({
+            url: data.url,
+            type: data.method,
+            data: data,
+            success: function (response) {
+                console.log(response + response.length);
+                if (data.modal !== '') {
+                    $("#" + data.modal + "").css("display", "none");
+                }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Done.',
+                    text: data.text
+                });
+                app.users(0, table);
+            },
+            error: function (xhr, status, error) {
+                if (data.modal !== '') {
+                    $("#" + data.modal + "").css("display", "block");
+                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong.',
+                    text: 'Response with error ' + '"' + xhr.responseText + '"'
+                });
+            }
+        });
     }
 
     init(table) {
