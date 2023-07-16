@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function home(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('home');
+    }
+
     /**
      * Display a listing of the resource.
      */
