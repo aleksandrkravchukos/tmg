@@ -41,15 +41,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return User::query()
-            ->create(
-                [
-                    'name' => $request->user_name,
-                    'email' => $request->user_email,
-                    'phone' => $request->user_phone,
-                    'password' => Hash::make($request->user_password),
-                ]
-            );
+        $error = '';
+        try {
+            $user = User::query()
+                ->create(
+                    [
+                        'name' => $request->user_name,
+                        'email' => $request->user_email,
+                        'phone' => $request->user_phone,
+                        'password' => Hash::make($request->user_password),
+                    ]
+                );
+        } catch (\Exception $exception) {
+            $error = $exception->getMessage();
+        }
+
+        return $error;
     }
 
     /**
