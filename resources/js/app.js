@@ -116,6 +116,11 @@ class userApp {
                     app.addUser(table);
                 });
 
+                $(".createUserDataCancel").click(function () {
+                    $("#myModal").css("display", "none");
+                    $("#myModalCreate").css("display", "none");
+                });
+
                 $(".modal-content").click(function (e) {
                     e.stopPropagation();
                 });
@@ -173,7 +178,6 @@ class userApp {
     }
 
     deleteUser() {
-
         Swal.fire({
             title: "Please type 'DELETE' for confirm",
             input: 'text',
@@ -208,13 +212,17 @@ class userApp {
                         });
                     },
                     error: function (xhr, status, error) {
-                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Something went wrong',
+                            text: error.message
+                        });
                     }
                 });
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'You are a robot.',
+                    title: 'It looks like you are a bot...',
                     text: 'Delete not confirmed'
                 });
             }
@@ -238,30 +246,21 @@ class userApp {
                 },
                 success: function (response) {
                     console.log(response + response.length);
-                    if (response.length === 0) {
-                        $("#myModal").css("display", "none");
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Done.',
-                            text: 'User created'
-                        });
-
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error creating.',
-                            text: response
-                        });
-                    }
-
+                    $("#myModal").css("display", "none");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Done.',
+                        text: 'User created'
+                    });
                     app.users(0, table);
                 },
                 error: function (xhr, status, error) {
+                    $("#myModal").css("display", "block");
                     console.error(error);
                     Swal.fire({
                         icon: 'error',
                         title: 'Something went wrong.',
-                        text: 'User not created with error ' + '"' + error + '"'
+                        text: 'User not created with error ' + '"' + error.message + '"'
                     });
                 }
             });

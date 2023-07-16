@@ -12,38 +12,24 @@ use Mockery\Exception;
 
 class UserService
 {
-    /**
-     * Validator.
-     *
-     * @param Request $request
-     */
-    private function validateUpdateRequest(Request $request): void
+    public function getUsers($page = 1): array
     {
-        $request->validate(
-            [
-                'name' => 'required|string',
-                'email' => ['required', 'email', Rule::unique('users')->ignore($request->id)],
-                'phone' => 'nullable|string',
-                'password' => 'required|string|min:8',
-            ]
-        );
+        //TODO: add paginate if need for future.
+        $users = User::all()->toArray();
+        foreach ($users as &$user) {
+            $user['make'] = '<div id="' . $user['id'] . '" class="buttonUpdate openModal">Update</div>
+                             <div id="' . $user['id'] . '" class="buttonDelete deleteModal">Delete</div>';
+        }
+        return $users;
     }
 
     /**
      * Update user data.
      *
-     * @param Request $request
-     * @param User $user
      * @return bool
      */
-    public function updateUserData(Request $request, User $user): bool
+    public function updateUserData(User $user, Request $request): bool
     {
-        try {
-            $this->validateUpdateRequest($request);
-        } catch (Exception $e) {
-            return $e->validator->errors()->all();
-        }
-
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
@@ -97,10 +83,23 @@ class UserService
      */
     public function deleteUser(int $id): bool
     {
-        try {
-            return User::query()->where('id', $id)->delete();
-        } catch (\Exception $exception) {
-        }
-        return false;
+        return User::query()->where('id', $id)->delete();
+    }
+
+    /**
+     * Validator.
+     *
+     * @param Request $request
+     */
+    public function validateUpdateRequest(Request $request): void
+    {
+        $request->validate(
+            [
+                'name' => 'required|string',
+                'email' => ['required', 'email', Rule::unique('users')->ignore($request->id)],
+                'phone' => 'nullable|string',
+                'password' => 'required|string|min:8',
+            ]
+        );
     }
 }

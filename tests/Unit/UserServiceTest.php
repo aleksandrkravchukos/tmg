@@ -44,7 +44,7 @@ class UserServiceTest extends TestCase
         $userMock->shouldReceive('save')->once();
 
         $userService = new UserService();
-        $updated = $userService->updateUserData($request, $userMock);
+        $updated = $userService->updateUserData($userMock, $request);
         $this->assertTrue($updated);
         $this->assertEquals('John Doe', $userMock->name);
         $this->assertEquals('john@example.com', $userMock->email);

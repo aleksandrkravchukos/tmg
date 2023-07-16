@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'UserController@home')->name('home');
+Route::get('/', 'Controller@home')->name('home');
 
 Route::group(['prefix' => 'users'], function () {
     Route::get('/',['as'=>'users.index','uses'=>'UserController@index']);

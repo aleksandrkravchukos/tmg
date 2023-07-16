@@ -6,9 +6,11 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Mockery\Exception;
 
 class UserController extends Controller
 {
@@ -16,16 +18,11 @@ class UserController extends Controller
     /**
      * @var UserService
      */
-    private $userService;
+    private UserService $userService;
 
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-    }
-
-    public function home(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
-    {
-        return view('home');
     }
 
     /**
@@ -37,9 +34,12 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create user.
+     *
+     * @param Request $request
+     * @return Model|Builder
      */
-    public function store(Request $request)
+    public function store(Request $request): Model|Builder
     {
         return $this->userService->createUser($request);
     }
@@ -49,20 +49,7 @@ class UserController extends Controller
      */
     public function getUsers(): array
     {
-        $users = User::all();
-        $data = [];
-        foreach ($users as $user) {
-            $data[] = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-                'make' => '<div id="' . $user->id . '" class="buttonUpdate openModal">Update</div>
-                           <div id="' . $user->id . '" class="buttonDelete deleteModal">Delete</div>',
-            ];
-        }
-
-        return $data;
+        return $this->userService->getUsers();
     }
 
     /**
@@ -77,15 +64,22 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update user by id.
+     *
+     * @param Request $request
+     * @return bool
      */
-    public function update(Request $request, User $user): bool
+    public function update(Request $request): bool
     {
-        $id = $request->id;
+        try {
+            $this->userService->validateUpdateRequest($request);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
         /** @var User $user */
-        $user = User::query()->where('id', $id)->first();
+        $user = User::query()->where('id', $request->id)->first();
 
-        return $this->userService->updateUserData($request, $user);
+        return $this->userService->updateUserData($user, $request);
     }
 
     /**
@@ -96,6 +90,10 @@ class UserController extends Controller
      */
     public function destroy($id): bool
     {
-        return $this->userService->deleteUser($id);
+        try {
+            return $this->userService->deleteUser($id);
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
     }
 }
