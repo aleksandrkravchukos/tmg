@@ -43,7 +43,7 @@ class UserController extends Controller
     {
         $error = '';
         try {
-            $User::query()
+            User::query()
                 ->create(
                     [
                         'name' => $request->user_name,
