@@ -231,15 +231,9 @@ class userApp {
                     user_phone: $('#user_phone_c').val(),
                     user_password: $('#user_password_c').val(),
                 },
-                duplicate: function (e) {
-                    if (e === '') {
-                        return true;
-                    }
-                    return false
-                },
                 success: function (response) {
                     console.log(response);
-                    if (this.duplicate(response)) {
+                    if (response.length === 0) {
                         $("#myModal").css("display", "none");
                         Swal.fire({
                             icon: 'success',
