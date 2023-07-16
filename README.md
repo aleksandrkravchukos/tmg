@@ -7,15 +7,15 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Test task for TMG
+
 
 # Docker / PHP 8.1 console/ Apache2 / Mysql 8 / npm / composer / laravel 10 
 
 Docker project for console php 8.1 projects with composer.
 Created from skeleton laravel 10.
 
-#Task
-[Click here](https://gist.github.com/mariusbalcytis/e73370f4d2bda302c7bd867dfeef9751)
+## Test task for TMG
+Need create CRUD page for user with random user fields. JS/Jquery required without page refreshing.
 
 ## Prerequisites
 
