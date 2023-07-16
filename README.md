@@ -9,7 +9,7 @@
 
 
 
-# Docker / PHP 8.1 console/ Apache2 / Mysql 8 / npm / composer / laravel 10 
+# Docker / PHP 8.1 console/ Apache2 / Mysql 8 / npm / composer / laravel 10 / Laravel Mix v6.0.49
 
 Docker project for console php 8.1 projects with composer.
 Created from skeleton laravel 10.
