@@ -70,20 +70,23 @@ class userApp {
         return errors;
     }
 
-    users(page, table) {
+    users(page) {
         console.log('Get existing users..');
-        return $.post({
+
+        let data = {
+            _token: this._token,
             url: this.url + 'index',
-            data: {
-                _token: this._token,
-                data: {
-                    page: page
-                }
-            },
+            page: page,
+        }
+
+        $.ajax({
+            url: this.url + 'index',
+            type: 'POST',
+            data: data,
             success: function (data) {
                 if (data) {
-                    table.clear();
-                    table.rows.add(data).draw();
+                    app.table.clear();
+                    app.table.rows.add(data).draw();
                 }
                 $(".openModal").click(function (e) {
                     let id = e.target.id;
@@ -113,7 +116,7 @@ class userApp {
                 });
 
                 $(".createUserData").click(function () {
-                    app.addUser(table);
+                    app.addUser(app.table);
                 });
 
                 $(".createUserDataCancel").click(function () {
@@ -123,6 +126,13 @@ class userApp {
 
                 $(".modal-content").click(function (e) {
                     e.stopPropagation();
+                });
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong.',
+                    text: 'Response with error ' + '"' + xhr.responseText + '"'
                 });
             }
         });
@@ -207,7 +217,7 @@ class userApp {
         });
     }
 
-    addUser(table) {
+    addUser() {
         let validation = this.validateCreateUser();
         console.log(validation);
         if (validation === true) {
@@ -222,7 +232,7 @@ class userApp {
                 method: 'POST',
                 modal: 'myModalCreate'
             }
-            this.makeRequest(data, table)
+            this.makeRequest(data)
         } else {
             let icon = 'warning';
             let title = 'Validation error';
@@ -235,7 +245,7 @@ class userApp {
         }
     }
 
-    makeRequest(data, table) {
+    makeRequest(data) {
         $.ajax({
             url: data.url,
             type: data.method,
@@ -250,7 +260,7 @@ class userApp {
                     title: 'Done.',
                     text: data.text
                 });
-                app.users(0, table);
+                app.users(0);
             },
             error: function (xhr, status, error) {
                 if (data.modal !== '') {
@@ -265,13 +275,16 @@ class userApp {
         });
     }
 
-    init(table) {
-        this.users(0, table);
+    init() {
+        this.users(0);
         console.log('Initialization completed.');
     }
 }
 
-let table = $('#userTable').DataTable({
+let app = new userApp();
+let Swal = require('sweetalert2');
+app.init();
+app.table = $('#userTable').DataTable({
     columnDefs: [
         {"width": "20px", "targets": 0, className: "dt-head-left"},
         {"width": "200px", "targets": 1, className: "dt-head-left"},
@@ -304,6 +317,3 @@ let table = $('#userTable').DataTable({
     },
     color: "green"
 });
-let app = new userApp();
-let Swal = require('sweetalert2');
-app.init(table);
