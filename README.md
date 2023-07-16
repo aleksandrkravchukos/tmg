@@ -57,3 +57,6 @@ Static analysis check
 ## Run cs-fixer
 
     Make cs-fix
+
+## Add seeders
+    Make seeders

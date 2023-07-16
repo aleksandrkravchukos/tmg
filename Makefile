@@ -41,3 +41,7 @@ static-analysis:
 ## Run cs-fixer
 cs-fix:
 	docker exec -it tmg_app /var/www/html/vendor/bin/php-cs-fixer fix /var/www/html/app
+
+## Make seeders
+seeders:
+	docker exec -t tmg_app php artisan db:seed --class=UserSeeder
