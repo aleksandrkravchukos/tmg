@@ -145,6 +145,11 @@ class userApp {
             },
             error: function (xhr, status, error) {
                 console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Update failed.',
+                    text: error.message
+                });
             }
         });
     }
