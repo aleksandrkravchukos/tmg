@@ -62,14 +62,11 @@ Static analysis check
     Make seeders
 
 ## Unit testing
-
+    Make unit-tests
 CRUD testing includes:
 
 1. testCreateUser.
 2. testUpdateUserDetail.
 3. testUserDeleteById.
 4. testUserWithEmailExists.
-
-
-    Make unit-tests
 
