@@ -44,6 +44,10 @@ All command you can see in Makefile
 
     Make npm-install
 
+## Compile js/css.
+
+    Make npm-dev
+
 ## Static analysis
 
 Static analysis check

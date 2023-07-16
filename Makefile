@@ -10,6 +10,10 @@ vendors-install:
 npm-install:
 	docker exec -it tmg_app npm install
 
+## Compile js/css
+npm-dev:
+	docker exec -it tmg_app npm run dev
+
 ## Migrates
 migrate:
 	docker exec -it tmg_app php artisan migrate
