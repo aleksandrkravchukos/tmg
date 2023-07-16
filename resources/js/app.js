@@ -243,6 +243,11 @@ class userApp {
                 },
                 error: function (xhr, status, error) {
                     console.error(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something went wrong.',
+                        text: 'User not created'
+                    });
                 }
             });
         } else {
