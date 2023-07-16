@@ -1,4 +1,5 @@
 require('datatables.net');
+const stringifySafe = require('json-stringify-safe');
 window.$ = window.jQuery = require('jquery');
 
 class userApp {
@@ -17,6 +18,56 @@ class userApp {
         } catch (e) {
             return e.errors
         }
+    }
+
+    clearForm() {
+        $('#myModalCreate input').val('');
+        $('#myModal input').val('');
+    }
+
+    validateCreateUser() {
+        let errors = [];
+        let isValid = true;
+        let name = $('input[name="name"]').val();
+        let email = $('input[name="email"]').val();
+        let phone = $('input[name="phone"]').val();
+        let password = $('input[name="password"]').val();
+        let password2 = $('input[name="password2"]').val();
+
+        if (name.trim() === '') {
+            isValid = false;
+            errors.push({error: 'Name not valid'});
+        }
+
+        if (email.trim() === '') {
+            isValid = false;
+            errors.push({error: 'Email not valid'});
+        }
+
+        if (phone.trim() === '') {
+            isValid = false;
+            errors.push({error: 'Phone not valid'});
+        }
+
+        if (password.trim() === '') {
+            isValid = false;
+            errors.push({error: 'Password2 not valid'});
+        }
+
+        if (password2.trim() === '') {
+            isValid = false;
+            errors.push({error: 'Password not valid'});
+        } else if (password !== password2) {
+            errors.push({error: 'Password2 not valid'});
+            isValid = false;
+        }
+
+        if (isValid) {
+            console.log('Validation success');
+            return true;
+        }
+
+        return errors;
     }
 
     users(page, table) {
@@ -40,6 +91,7 @@ class userApp {
                 });
 
                 $(".openModalCreate").click(function (e) {
+                    app.clearForm()
                     $("#myModalCreate").css("display", "block");
                 });
 
@@ -59,7 +111,6 @@ class userApp {
                 });
 
                 $(".createUserData").click(function () {
-                    $("#myModalCreate").css("display", "none");
                     app.addUser();
                 });
 
@@ -72,9 +123,7 @@ class userApp {
 
     user() {
         console.log('Get user by id = ' + this.activeId);
-        $('#user_name').val('')
-        $('#user_email').val('')
-        $('#user_password').val('')
+        app.clearForm();
         $.ajax({
             url: this.url + this.activeId,
             type: 'GET',
@@ -85,7 +134,7 @@ class userApp {
             success: function (response) {
                 $('#user_name').val(response.name)
                 $('#user_email').val(response.email)
-                $('#user_password').val(response.password)
+                $('#user_phone').val(response.phone)
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -117,49 +166,96 @@ class userApp {
     }
 
     deleteUser() {
-        $.ajax({
-            url: this.url + this.activeId,
-            type: 'DELETE',
-            data: {
-                _token: this._token,
-                id: this.activeId
+
+        Swal.fire({
+            title: "Please type 'DELETE' for confirm",
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
             },
-            success: function (response) {
-                console.log(response);
-                app.users(0, table);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
+            showCancelButton: true,
+            confirmButtonText: 'Submit',
+            showLoaderOnConfirm: true,
+            preConfirm: (name) => {
+                if (name) {
+                    console.log(`Entered name: ${name}`);
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed && result.value === 'DELETE') {
+                console.log('Admin confirmed deleting user');
+                $.ajax({
+                    url: this.url + this.activeId,
+                    type: 'DELETE',
+                    data: {
+                        _token: this._token,
+                        id: this.activeId
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        app.users(0, table);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Done.',
+                            text: 'User deleted'
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'You are a robot.',
+                    text: 'Delete not confirmed'
+                });
             }
         });
     }
 
     addUser() {
-        $.ajax({
-            url: this.url + 'create',
-            type: 'POST',
-            data: {
-                _token: this._token,
-                user_name: $('#user_name_c').val(),
-                user_email: $('#user_email_c').val(),
-                user_phone: $('#user_phone_c').val(),
-                user_password: $('#user_password').val(),
-            },
-            success: function (response) {
-                console.log(response);
-                $("#myModal").css("display", "none");
-                app.users(0, table);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-
-        //return this.userRequest(args);
+        let validation = this.validateCreateUser();
+        console.log(validation);
+        if (validation === true) {
+            $("#myModalCreate").css("display", "none");
+            $.ajax({
+                url: this.url + 'create',
+                type: 'POST',
+                data: {
+                    _token: this._token,
+                    user_name: $('#user_name_c').val(),
+                    user_email: $('#user_email_c').val(),
+                    user_phone: $('#user_phone_c').val(),
+                    user_password: $('#user_password_c').val(),
+                },
+                success: function (response) {
+                    console.log(response);
+                    $("#myModal").css("display", "none");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Done.',
+                        text: 'User created'
+                    });
+                    app.users(0, table);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        } else {
+            let icon = 'warning';
+            let title = 'Validation error';
+            let jsonErrorMessage = stringifySafe(validation);
+            Swal.fire({
+                icon: icon,
+                title: title,
+                text: jsonErrorMessage
+            });
+        }
     }
 
     init(table) {
-        this.table = table;
         this.users(0, table);
         console.log('Initialization completed.');
     }
@@ -167,10 +263,10 @@ class userApp {
 
 let table = $('#userTable').DataTable({
     columnDefs: [
-        {"width": "20px", "targets": 0},
-        {"width": "200px", "targets": 1},
-        {"width": "220px", "targets": 2},
-        {"width": "150px", "targets": 3},
+        {"width": "20px", "targets": 0, className: "dt-head-left"},
+        {"width": "200px", "targets": 1, className: "dt-head-left"},
+        {"width": "220px", "targets": 2, className: "dt-head-left"},
+        {"width": "150px", "targets": 3, className: "dt-head-left"},
     ],
     columns: [
         {data: 'id'},
@@ -199,4 +295,5 @@ let table = $('#userTable').DataTable({
     color: "green"
 });
 let app = new userApp();
+let Swal = require('sweetalert2');
 app.init(table);

@@ -23,9 +23,11 @@
         "webpack": "^5.88.1"
     },
     "dependencies": {
-        "datatable": "^0.0.6",
         "datatables.net": "^1.13.5",
         "jquery": "^3.7.0",
-        "path": "^0.12.7"
+        "jquery-validation": "^1.19.5",
+        "json-stringify-safe": "^5.0.1",
+        "path": "^0.12.7",
+        "sweetalert2": "^11.7.18"
     }
 }

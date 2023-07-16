@@ -3,6 +3,7 @@
 
 @push('custom-css')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
 @endpush
 @section('user-content')
 
@@ -33,28 +34,28 @@
         </div>
 
         <div id="myModalCreate" class="modal">
-            <div class="modal-content" style="width: 500px;">
+            <div id="create" class="modal-content" style="width: 500px;">
                 <span class="close">&times;</span>
                 <h2>Add user</h2>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="user_name_c" required style="width: 450px;">
+                    <input type="text" name="name" id="user_name_c" required style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="user_email_c"required style="width: 450px;">
+                    <input type="email" name="email" id="user_email_c"required style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="user_phone_c">Phone</label>
-                    <input type="text" id="user_phone_c" style="width: 450px;">
+                    <input type="text" id="user_phone_c" name="phone" style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="user_password" required style="width: 450px;">
+                    <input type="password" id="user_password_c" name="password" required style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="password">Repeat password</label>
-                    <input type="password" id="user_password_2" required style="width: 450px;">
+                    <input type="password" id="user_password_c_2" name="password2" required style="width: 450px;">
                 </div>
                 <div id="buttons">
                     <button class="createUserData" style="width: 473px;">Create</button>
