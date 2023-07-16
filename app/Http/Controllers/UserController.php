@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -11,6 +12,17 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    /**
+     * @var UserService
+     */
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function home(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('home');
@@ -22,14 +34,6 @@ class UserController extends Controller
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         return view('users');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -73,12 +77,11 @@ class UserController extends Controller
      * Get user data by id.
      *
      * @param $id
-     * @param Request $request
      * @return User
      */
-    public function data($id, Request $request): User
+    public function data($id): User
     {
-        return User::find($id);
+        return $this->userService->getUserById($id);
     }
 
     /**
@@ -87,19 +90,9 @@ class UserController extends Controller
     public function update(Request $request, User $user): bool
     {
         $id = $request->id;
+        /** @var User $user */
         $user = User::query()->where('id', $id)->first();
-        $updated = false;
-
-        if ($user) {
-            $user->name = $request->user_name;
-            $user->email = $request->user_email;
-            $user->phone = $request->user_phone;
-            $user->password = Hash::make($request->user_password);
-            $user->save();
-            $updated = true;
-        }
-
-        return $updated;
+        return $this->userService->update($request, $user);
     }
 
     /**
