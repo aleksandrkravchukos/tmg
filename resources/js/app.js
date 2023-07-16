@@ -60,7 +60,7 @@ class userApp {
 
                 $(".createUserData").click(function () {
                     $("#myModalCreate").css("display", "none");
-                    app.users();
+                    app.addUser();
                 });
 
                 $(".modal-content").click(function (e) {
@@ -101,6 +101,7 @@ class userApp {
                 _token: this._token,
                 user_name: $('#user_name').val(),
                 user_email: $('#user_email').val(),
+                user_phone: $('#user_phone').val(),
                 user_password: $('#user_password').val(),
                 id: this.activeId
             },
@@ -133,7 +134,27 @@ class userApp {
         });
     }
 
-    addUser(args) {
+    addUser() {
+        $.ajax({
+            url: this.url + 'create',
+            type: 'POST',
+            data: {
+                _token: this._token,
+                user_name: $('#user_name_c').val(),
+                user_email: $('#user_email_c').val(),
+                user_phone: $('#user_phone_c').val(),
+                user_password: $('#user_password').val(),
+            },
+            success: function (response) {
+                console.log(response);
+                $("#myModal").css("display", "none");
+                app.users(0, table);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+
         //return this.userRequest(args);
     }
 

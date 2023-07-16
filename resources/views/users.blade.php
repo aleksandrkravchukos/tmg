@@ -12,15 +12,19 @@
                 <h2>Edit user data</h2>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="user_name" name="name" required style="width: 450px;">
+                    <input type="text" id="user_name" required style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="user_email" name="email" required style="width: 450px;">
+                    <input type="email" id="user_email" required style="width: 450px;">
+                </div>
+                <div class="form-group">
+                    <label for="email">Phone</label>
+                    <input type="text" id="user_phone" required style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="user_password" name="password" required style="width: 450px;">
+                    <input type="password" id="user_password" required style="width: 450px;">
                 </div>
                 <div id="buttons">
                     <button class="updateUserData" style="width: 473px;">Update data</button>
@@ -34,19 +38,23 @@
                 <h2>Add user</h2>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="user_name" name="name" required style="width: 450px;">
+                    <input type="text" id="user_name_c" required style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="user_email" name="email" required style="width: 450px;">
+                    <input type="email" id="user_email_c"required style="width: 450px;">
+                </div>
+                <div class="form-group">
+                    <label for="user_phone_c">Phone</label>
+                    <input type="text" id="user_phone_c" style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="user_password" name="password" required style="width: 450px;">
+                    <input type="password" id="user_password" required style="width: 450px;">
                 </div>
                 <div class="form-group">
                     <label for="password">Repeat password</label>
-                    <input type="password" id="user_password" name="password" required style="width: 450px;">
+                    <input type="password" id="user_password_2" required style="width: 450px;">
                 </div>
                 <div id="buttons">
                     <button class="createUserData" style="width: 473px;">Create</button>
