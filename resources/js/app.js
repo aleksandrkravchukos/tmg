@@ -148,7 +148,7 @@ class userApp {
                 Swal.fire({
                     icon: 'error',
                     title: 'Update failed.',
-                    text: error.message
+                    text: xhr.responseText
                 });
             }
         });
@@ -176,7 +176,7 @@ class userApp {
                 Swal.fire({
                     icon: 'error',
                     title: 'Update failed.',
-                    text: error.message
+                    text: xhr.responseText
                 });
             }
         });
@@ -220,7 +220,7 @@ class userApp {
                         Swal.fire({
                             icon: 'error',
                             title: 'Something went wrong',
-                            text: error.message
+                            text: xhr.responseText
                         });
                     }
                 });
@@ -261,11 +261,10 @@ class userApp {
                 },
                 error: function (xhr, status, error) {
                     $("#myModalCreate").css("display", "block");
-                    console.error(error.message);
                     Swal.fire({
                         icon: 'error',
                         title: 'Something went wrong.',
-                        text: 'User not created with error ' + '"' + error.message + '"'
+                        text: 'User not created with error ' + '"' + xhr.responseText + '"'
                     });
                 }
             });
