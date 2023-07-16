@@ -34,10 +34,12 @@ class UserSeeder extends Seeder
             'alice.it'
         ];
         for ($i = 0; $i < 10; $i++) {
+            $name = $italianNames[array_rand($italianNames)];
+            $email = $name . '@' . $italianDomains[array_rand($italianDomains)];
             User::create(
                 [
-                    'name' => $italianNames[array_rand($italianNames)],
-                    'email' => $italianDomains[array_rand($italianDomains)],
+                    'name' => $name,
+                    'email' => $email,
                     'password' => bcrypt('password'),
                 ]
             );
