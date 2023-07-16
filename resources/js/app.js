@@ -231,14 +231,30 @@ class userApp {
                     user_phone: $('#user_phone_c').val(),
                     user_password: $('#user_password_c').val(),
                 },
+                duplicate: function (e) {
+                    if (e === '') {
+                        return true;
+                    }
+                    return false
+                },
                 success: function (response) {
                     console.log(response);
-                    $("#myModal").css("display", "none");
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Done.',
-                        text: 'User created'
-                    });
+                    if (this.duplicate(response)) {
+                        $("#myModal").css("display", "none");
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Done.',
+                            text: 'User created'
+                        });
+
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error creating.',
+                            text: response
+                        });
+                    }
+
                     app.users(0, table);
                 },
                 error: function (xhr, status, error) {
