@@ -9,9 +9,10 @@
 
 ## Test task for TMG
 
-# Docker / PHP 8.1 console / Mysql 8 / npm/ composer / laravel 10 
+# Docker / PHP 8.1 console/ Apache2 / Mysql 8 / npm / composer / laravel 10 
 
-Docker project for console php 7.4 projects with composer and phpunit.
+Docker project for console php 8.1 projects with composer.
+Created from skeleton laravel 10.
 
 #Task
 [Click here](https://gist.github.com/mariusbalcytis/e73370f4d2bda302c7bd867dfeef9751)
@@ -52,23 +53,3 @@ Static analysis check
 ## Run cs-fixer
 
     Make cs-fix
-
-## Results
-
-Input data variants
-with default api services
-
-    docker exec -it php74-cli php app.php input.txt
-
-with auth Bin service
-
-    docker exec -it php74-cli php app.php input.txt --apiBinUrl=https://lookup.binlist.net/ --authBinType=basic --authBinLogin=admin --authBinPassword=pass
-
-without any auth
-
-    docker exec -it php74-cli php app.php input.txt --apiBinUrl=https://lookup.binlist.net/ --apiRatesUrl=https://api.exchangeratesapi.io/latest
-
-with auth in both service
-
-    docker exec -it php74-cli php app.php input.txt --apiBinUrl=https://lookup.binlist.net/ --apiRatesUrl=https://api.exchangeratesapi.io/latest --authBinType=basic --authBinLogin=admin --authBinPassword=pass --authRatesType=basic --authRatesLogin=admin --authRatesPassword=pass
-    
