@@ -81,8 +81,10 @@ class userApp {
                 }
             },
             success: function (data) {
-                table.clear();
-                table.rows.add(data).draw();
+                if (data) {
+                    table.clear();
+                    table.rows.add(data).draw();
+                }
                 $(".openModal").click(function (e) {
                     let id = e.target.id;
                     app.activeId = id;
