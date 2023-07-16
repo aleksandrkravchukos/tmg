@@ -232,7 +232,7 @@ class userApp {
                     user_password: $('#user_password_c').val(),
                 },
                 success: function (response) {
-                    console.log(response);
+                    console.log(response + response.length);
                     if (response.length === 0) {
                         $("#myModal").css("display", "none");
                         Swal.fire({
