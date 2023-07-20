@@ -48,10 +48,13 @@ All command you can see in Makefile
 
     Make npm-dev
 
-## 7. Add seeders
+## 7. Migrate
+
+    Make migrate
+## 8. Add seeders
     Make seeders
 
-## 8. Unit testing
+## 9. Unit testing
     Make unit-tests
 CRUD testing includes:
 
